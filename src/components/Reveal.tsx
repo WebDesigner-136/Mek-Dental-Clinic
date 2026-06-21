@@ -74,16 +74,15 @@ export function WordSplit({ text, delay = 0 }: { text: string; delay?: number })
   return (
     <span className="inline">
       {words.map((w, i) => (
-        <span key={i} className="inline-block overflow-hidden align-bottom mr-[0.25em] last:mr-0">
-          <motion.span
-            className="inline-block"
-            initial={reduce ? false : { y: "110%" }}
-            animate={{ y: 0 }}
-            transition={{ duration: 0.9, ease: EASE, delay: delay + i * 0.06 }}
-          >
-            {w}
-          </motion.span>
-        </span>
+        <motion.span
+          key={i}
+          className="inline-block mr-[0.25em] last:mr-0"
+          initial={reduce ? false : { opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: EASE, delay: delay + i * 0.06 }}
+        >
+          {w}
+        </motion.span>
       ))}
     </span>
   );
