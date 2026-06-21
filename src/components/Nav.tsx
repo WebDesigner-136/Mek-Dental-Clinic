@@ -34,6 +34,14 @@ export function Nav() {
 
   return (
     <>
+      {(() => {
+        const darkHeroRoute =
+          pathname === "/about" ||
+          pathname === "/gallery" ||
+          pathname.startsWith("/services");
+        const onDark = darkHeroRoute && !scrolled;
+        const textCls = onDark ? "text-[#FAFAF8]" : "text-[#323232]";
+        return (
       <header
         className={`fixed top-0 inset-x-0 z-40 transition-all duration-300 ${
           scrolled
@@ -42,7 +50,7 @@ export function Nav() {
         }`}
       >
         <nav className="container-x flex items-center justify-between h-16 md:h-[72px]">
-          <Link to="/" className="font-display text-[1.25rem] font-semibold text-[#323232] tracking-tight">
+          <Link to="/" className={`font-display text-[1.25rem] font-semibold tracking-tight ${textCls}`}>
             Mek Dental Clinic
           </Link>
 
@@ -53,13 +61,13 @@ export function Nav() {
                 <li key={l.to}>
                   <Link
                     to={l.to}
-                    className="relative text-[0.9375rem] font-medium text-[#323232] transition-opacity hover:opacity-70 py-2"
+                    className={`relative text-[0.9375rem] font-medium transition-opacity hover:opacity-70 py-2 ${textCls}`}
                   >
                     {l.label}
                     {active && (
                       <motion.span
                         layoutId="nav-underline"
-                        className="absolute left-0 right-0 -bottom-0.5 h-[2px] bg-[#323232]"
+                        className={`absolute left-0 right-0 -bottom-0.5 h-[2px] ${onDark ? "bg-[#FAFAF8]" : "bg-[#323232]"}`}
                       />
                     )}
                   </Link>
@@ -71,17 +79,22 @@ export function Nav() {
           <div className="flex items-center gap-4">
             <a
               href="tel:+96171349369"
-              className="hidden xl:inline-flex items-center gap-1.5 text-[0.875rem] text-[#6D767D] hover:text-[#323232] transition-colors"
+              className={`hidden xl:inline-flex items-center gap-1.5 text-[0.875rem] transition-colors ${onDark ? "text-[#FAFAF8]/80 hover:text-[#FAFAF8]" : "text-[#6D767D] hover:text-[#323232]"}`}
             >
               <Phone size={15} strokeWidth={1.5} /> +961 71 349 369
             </a>
-            <Link to="/contact" className="hidden sm:inline-flex btn-primary !py-2.5 !px-6 text-sm">
+            <Link
+              to="/contact"
+              className={`hidden sm:inline-flex items-center gap-2 rounded-full px-6 py-2.5 text-sm font-medium transition-all hover:-translate-y-0.5 hover:shadow-warm-md ${
+                onDark ? "bg-[#FAFAF8] text-[#323232]" : "bg-[#323232] text-[#FAFAF8]"
+              }`}
+            >
               Book Appointment
             </Link>
             <button
               type="button"
               aria-label="Open menu"
-              className="lg:hidden p-2 -mr-2 text-[#323232]"
+              className={`lg:hidden p-2 -mr-2 ${textCls}`}
               onClick={() => setOpen(true)}
             >
               <Menu size={22} strokeWidth={1.5} />
@@ -89,6 +102,8 @@ export function Nav() {
           </div>
         </nav>
       </header>
+        );
+      })()}
 
       <AnimatePresence>
         {open && (
