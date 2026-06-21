@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
-import { Instagram, Linkedin, MapPin, Phone, Mail, Clock } from "lucide-react";
+import { MapPin, Phone, Mail, Clock } from "lucide-react";
+import { InstagramIcon, LinkedinIcon } from "./BrandIcons";
 import { SERVICES } from "@/lib/services";
 
 const navLinks = [
@@ -21,11 +22,11 @@ export function Footer() {
           <div className="flex gap-3">
             <a href="https://www.instagram.com/dr.marianakaram/" target="_blank" rel="noreferrer noopener"
                aria-label="Instagram" className="text-[#6D767D] hover:text-[#FAFAF8] transition-colors">
-              <Instagram size={20} strokeWidth={1.5} />
+              <InstagramIcon size={20} />
             </a>
             <a href="https://www.linkedin.com/in/dr-mariana-karam-1aa134235/" target="_blank" rel="noreferrer noopener"
                aria-label="LinkedIn" className="text-[#6D767D] hover:text-[#FAFAF8] transition-colors">
-              <Linkedin size={20} strokeWidth={1.5} />
+              <LinkedinIcon size={20} />
             </a>
           </div>
         </div>
