@@ -78,8 +78,7 @@ export function WordSplit({ text, delay = 0 }: { text: string; delay?: number })
           <motion.span
             className="inline-block"
             initial={reduce ? false : { y: "110%" }}
-            whileInView={{ y: 0 }}
-            viewport={{ once: true, amount: 0.4 }}
+            animate={{ y: 0 }}
             transition={{ duration: 0.9, ease: EASE, delay: delay + i * 0.06 }}
           >
             {w}
