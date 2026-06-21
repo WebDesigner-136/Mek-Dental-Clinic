@@ -7,14 +7,9 @@ import { CTABanner } from "@/components/CTABanner";
 import { SERVICES, getService } from "@/lib/services";
 
 export const Route = createFileRoute("/services/$slug")({
-  loader: ({ params }) => {
-    const service = getService(params.slug);
-    if (!service) throw notFound();
-    return { service };
-  },
-  head: ({ loaderData }) => {
-    const s = loaderData?.service;
-    if (!s) return { meta: [{ title: "Service — Mek Dental" }] };
+  head: ({ params }) => {
+    const s = params?.slug ? getService(params.slug) : undefined;
+    if (!s) return { meta: [{ title: "Service — Mek Dental Clinic" }] };
     return {
       meta: [
         { title: `${s.name} | Mek Dental Clinic — Hadath, Lebanon` },
@@ -36,8 +31,12 @@ export const Route = createFileRoute("/services/$slug")({
 });
 
 function ServiceDetail() {
-  const { service } = Route.useLoaderData();
+  const { slug } = Route.useParams();
+  const service = getService(slug);
   const reduce = useReducedMotion();
+  if (!service) {
+    throw notFound();
+  }
   const Icon = service.icon;
   const related = SERVICES.filter((s) => s.slug !== service.slug).slice(0, 3);
 
